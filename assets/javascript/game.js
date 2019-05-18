@@ -4,14 +4,18 @@ var randomNum ;
 var wins = 0;
 var losses = 0;
 var score = 0;
-var crystalOne = "";
+var crystalOne = null;
+var crystalTwo = null;
+var crystalThree = null;
+var crystalFour = null;
+
 //print wins and losses counters to 0
 $("#wins").html("Wins: "+ 0);
 $("#losses").html("Losses: "+0);
 
 
 //function to call when starting game and restarting game
-$(document).ready(function (){
+function startGame(){
     //reset score to 0
     score = 0
     //generate random number
@@ -38,7 +42,7 @@ $(document).ready(function (){
     $("#crystalThree").val(crystalThree);
     $("#crystalFour").val(crystalFour);
 
-});
+};
 
 //main function which will be called on click of each button, parameters will be run when function is called later
 //need to figure out how to create one function to cover all crystal clicks - for loop?
@@ -53,18 +57,21 @@ function run(){
 
 
     //add if condition to check if score === randomNum
-    if (score ===randomNum) {
+    if (score === randomNum) {
     //if condition met, increment wins by 1 and reset game
     wins++;
     console.log(wins);
         //print wins to html
         $("#wins").html("Wins: " + wins);
+        //alert of win and reset game
+        alert ("Win!");
+        $(document).ready(startGame);
 };
 
 
 
     //add if condition to check if score > randomNum
-    //figure out how to call start game function to reset game - console says startGame() is undefined
+    //figure out how to call start game function to reset game - console says startGame() is undefined - solved! call document.ready not just fx by itself
     if (score > randomNum) {
     //if condition met, increment losses by 1 and reset game
         losses++;
@@ -72,6 +79,10 @@ function run(){
 
         //print losses to html
         $("#losses").html("Losses: " + losses);
+
+        //alert of loss and reset game
+        alert ("Womp Womp!");
+        $(document).ready(startGame);
     }
 
 
@@ -80,5 +91,7 @@ function run(){
 
 
 //call function to Start Game
+$(document).ready(startGame);
+
 //call run function on click event
 $("#crystalOne").click(run);
